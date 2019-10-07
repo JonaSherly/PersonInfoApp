@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PersonInfo</string>
+    <string name="name">Name</string>
+    <string name="dob">D.O.B</string>
+    <string name="email">E-Mail ID</string>
+    <string name="submit">SUBMIT</string>
+    <string name="name_hint">"enter name"</string>
+    <string name="dob_hint">"dd/MM/yyyy"</string>
+    <string name="email_hint">"example@domain.com"</string>
+</resources>
