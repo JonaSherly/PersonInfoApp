@@ -1,26 +1,25 @@
-package com.example.sample2.mainEditor
+package com.example.peopleInfo.mainEditor
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sample2.model.Person
-import com.example.sample2.model.ValidationResult
-import com.example.sample2.database.ErrorData
-import com.example.sample2.database.ResultData
+import com.example.peopleInfo.model.Person
+import com.example.peopleInfo.model.ValidationResult
+import com.example.peopleInfo.database.ErrorData
+import com.example.peopleInfo.database.ResultData
 import kotlinx.coroutines.*
 
 //Main editor page viewmodel
-class MainActivityViewModel(private val mainRepository: MainRepository) :ViewModel()
-{
+class MainActivityViewModel(private val mainRepository: MainRepository) : ViewModel() {
     private val viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private var _notificationMessage = MutableLiveData<String>()
-    val notificationMessage:LiveData<String>
-    get() = _notificationMessage
+    val notificationMessage: LiveData<String>
+        get() = _notificationMessage
 
-    override fun onCleared(){
+    override fun onCleared() {
         viewModelJob.cancel()
     }
 
@@ -34,7 +33,7 @@ class MainActivityViewModel(private val mainRepository: MainRepository) :ViewMod
         val dob = personData.dob
         if (email == "" || name == "" || dob == "") validationResult =
             ValidationResult.EmptySpacesError
-        else if(  !EMAIL_REGEX.toRegex().matches(email))
+        else if (!EMAIL_REGEX.toRegex().matches(email))
             validationResult = ValidationResult.EmailFormatError
         else if (!NAME_REGEX.toRegex().matches(name))
             validationResult = ValidationResult.NameFormatError
@@ -43,20 +42,18 @@ class MainActivityViewModel(private val mainRepository: MainRepository) :ViewMod
     }
 
     //Insert into Database
-    fun insertPersonData(personData: Person)
-    {
+    fun insertPersonData(personData: Person) {
         //Launch coroutine
         uiScope.launch {
-           val resultData = insertData(personData)
-            if(resultData is ErrorData) //Notify incase of error
+            val resultData = insertData(personData)
+            if (resultData is ErrorData) //Notify incase of error
                 _notificationMessage.value = resultData.errorMsg
         }
     }
 
     //Suspend function to run insert operation in IO thread
-    private suspend fun insertData(personData: Person):ResultData<Boolean>
-    {
-       return withContext(Dispatchers.IO)
+    private suspend fun insertData(personData: Person): ResultData<Boolean> {
+        return withContext(Dispatchers.IO)
         {
             mainRepository.insert(personData)
 
@@ -64,19 +61,17 @@ class MainActivityViewModel(private val mainRepository: MainRepository) :ViewMod
     }
 
     //Update data in Database
-    fun upDatePersonData(personData: Person)
-    {
+    fun upDatePersonData(personData: Person) {
         //Launch coroutine
         uiScope.launch {
-           val resultData = updateData(personData)
-            if(resultData is ErrorData) //Notify incase of error
+            val resultData = updateData(personData)
+            if (resultData is ErrorData) //Notify incase of error
                 _notificationMessage.value = resultData.errorMsg
         }
     }
 
     //Suspend function to run update operation in IO thread
-    private suspend fun updateData(personData: Person):ResultData<Boolean>
-    {
+    private suspend fun updateData(personData: Person): ResultData<Boolean> {
         return withContext(Dispatchers.IO)
         {
             mainRepository.updatePersonData(personData)

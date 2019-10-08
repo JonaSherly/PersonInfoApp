@@ -1,4 +1,4 @@
-package com.example.sample2.peopleTable
+package com.example.peopleInfo.peopleTable
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sample2.model.Person
-import com.example.sample2.R
+import com.example.peopleInfo.model.Person
+import com.example.peopleInfo.R
 import kotlinx.android.synthetic.main.people_list_item.view.*
 
 //List adapter class

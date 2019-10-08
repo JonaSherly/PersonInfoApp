@@ -1,4 +1,4 @@
-package com.example.sample2.peopleTable
+package com.example.peopleInfo.peopleTable
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

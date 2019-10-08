@@ -1,4 +1,4 @@
-package com.example.sample2.database
+package com.example.peopleInfo.database
 
 import android.content.Context
 

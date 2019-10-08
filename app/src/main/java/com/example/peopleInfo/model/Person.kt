@@ -1,4 +1,4 @@
-package com.example.sample2.model
+package com.example.peopleInfo.model
 
 import java.io.Serializable
 

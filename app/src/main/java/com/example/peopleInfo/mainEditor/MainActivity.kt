@@ -1,4 +1,4 @@
-package com.example.sample2.mainEditor
+package com.example.peopleInfo.mainEditor
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import androidx.lifecycle.ViewModelProviders
-import com.example.sample2.*
-import com.example.sample2.database.Database
-import com.example.sample2.model.Person
-import com.example.sample2.model.ValidationResult
-import com.example.sample2.peopleTable.PeopleList
+import com.example.peopleInfo.*
+import com.example.peopleInfo.database.Database
+import com.example.peopleInfo.model.Person
+import com.example.peopleInfo.model.ValidationResult
+import com.example.peopleInfo.peopleTable.PeopleList
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,24 +41,26 @@ class MainActivity : AppCompatActivity() {
         )
 
         //Get viewModel instance
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java)
 
         viewModel.notificationMessage.observe(this, androidx.lifecycle.Observer {
             Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
         })
         val cal = Calendar.getInstance()
 
-        val dateSetListener = object : DatePickerDialog.OnDateSetListener { //Date Picker dialog listener is set
-            override fun onDateSet(
-                view: DatePicker, year: Int, monthOfYear: Int,
-                dayOfMonth: Int
-            ) {
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView(cal)
+        val dateSetListener =
+            object : DatePickerDialog.OnDateSetListener { //Date Picker dialog listener is set
+                override fun onDateSet(
+                    view: DatePicker, year: Int, monthOfYear: Int,
+                    dayOfMonth: Int
+                ) {
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, monthOfYear)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    updateDateInView(cal)
+                }
             }
-        }
 
         dobText.keyListener = null
 
@@ -94,6 +96,7 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
     // Display the selected data on the screen
     @SuppressLint("SimpleDateFormat")
     private fun updateDateInView(c: Calendar) {
@@ -136,7 +139,6 @@ class MainActivity : AppCompatActivity() {
         dobText.setText(data.dob).toString()
         emailText.setText(data.emailID).toString()
     }
-
 
 
     //Get result from list page
